@@ -1,10 +1,3 @@
-# Department of Electrical, Electronics, and Communication Engineering  
-**GITAM School of Technology, GITAM (Deemed to be University), Bengaluru, India**
-
----
-
-## Extended Abstract: PROJ3999 (Major Project)  
-
 ### Title:  
 **Image Dehazing Using Image Processing and Machine Learning Techniques**  
 
