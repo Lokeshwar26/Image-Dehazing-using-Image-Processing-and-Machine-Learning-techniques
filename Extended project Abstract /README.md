@@ -59,7 +59,8 @@ Our approach not only improves the visual quality of hazy images but also enhanc
 ## IEEE Conference Targets:  
 
 - **IEEE International Conference on Contemporary Computing and Communications (InC4)** at Bengaluru.  
-- **2025 IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP 2025)** at Hyderabad.  
+- **IEEE International Conference on Intelligent and Cloud Computing (ICoICC) 2025**, 
+Bhubaneswar.   
 
 ---
 
