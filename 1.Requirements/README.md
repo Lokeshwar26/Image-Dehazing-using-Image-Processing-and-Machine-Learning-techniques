@@ -1,5 +1,4 @@
 ## High-Level Requirements (HLRs)
-These are broad, overarching requirements that describe what the system should achieve.
 
 - **Dehazing Capability**:  
   The system must reduce or remove haze from input images and produce visually clear outputs.
@@ -19,7 +18,6 @@ These are broad, overarching requirements that describe what the system should a
 ---
 
 ## Low-Level Requirements (LLRs)
-These are specific, detailed requirements that support the implementation of high-level requirements.
 
 - **Data Preprocessing**:  
   - Input images must be resized to 256x256 pixels for compatibility with the CNN model.  
@@ -43,7 +41,6 @@ These are specific, detailed requirements that support the implementation of hig
 ---
 
 ## Functional Requirements
-These describe specific functionalities the system must perform.
 
 - **Input and Output**:  
   Accept hazy images as input and return dehazed images as output.
@@ -64,7 +61,6 @@ These describe specific functionalities the system must perform.
 ---
 
 ## Non-Functional Requirements (NFRs)
-These describe system qualities or constraints.
 
 - **Performance**:  
   The system must process input images and provide dehazed outputs in under 5 seconds per image during inference.
@@ -77,9 +73,6 @@ These describe system qualities or constraints.
 
 - **Usability**:  
   The system must be user-friendly, allowing researchers or developers to train and test the model with minimal setup.
-
-- **Portability**:  
-  The system must work on standard hardware with MATLAB installed.
 
 - **Reliability**:  
   The system must ensure that the dehazed output images are consistent and free from significant artifacts.
