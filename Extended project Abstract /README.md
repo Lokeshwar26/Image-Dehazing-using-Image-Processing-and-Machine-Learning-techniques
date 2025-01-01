@@ -1,5 +1,5 @@
-### Title:  
-**Image Dehazing Using Image Processing and Machine Learning Techniques**  
+**Title:**Image Dehazing Using Image Processing and Machine Learning Techniques
+ 
 
 **Project Supervisor:** Dr. Jaya Prakash Sahoo  
 **Cluster Name:** AI/ML  
