@@ -1,1 +1,1 @@
-Image Dehazing using cnn and machine learning techniques
+Image Dehazing using Image Processing and Machine Learning techniques.
