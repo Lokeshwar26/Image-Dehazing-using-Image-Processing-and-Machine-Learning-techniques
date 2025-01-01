@@ -1,5 +1,3 @@
-# Image Dehazing Project Requirements
-
 ## High-Level Requirements (HLRs)
 These are broad, overarching requirements that describe what the system should achieve.
 
