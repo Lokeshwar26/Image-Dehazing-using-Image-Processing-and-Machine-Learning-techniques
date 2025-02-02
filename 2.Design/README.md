@@ -73,4 +73,3 @@ This function performs image dehazing using a Convolutional Neural Network (CNN)
 ```matlab
 [dehaze, layer_outputs, wsnr] = run_cnn(im);
 
-- ![English](Doc1.jphg) **English**  
