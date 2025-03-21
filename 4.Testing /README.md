@@ -1,14 +1,13 @@
 # 🛠️ Model Testing & Evaluation
 
 ## 📂 Test Dataset Structure
-📂 dataset
-├── 📂 outdoor
-│   ├── 📂 hazy      # Hazy images (outdoor)
-│   ├── 📂 gt        # Ground Truth images (outdoor)
-├── 📂 indoor
-│   ├── 📂 hazy      # Hazy images (indoor)
-│   ├── 📂 gt        # Ground Truth images (indoor)
-
+📂 dataset  
+├── 📂 outdoor  
+│   ├── 📂 hazy        # Hazy images (outdoor)  
+│   ├── 📂 gt          # Ground Truth images (outdoor)  
+├── 📂 indoor  
+│   ├── 📂 hazy        # Hazy images (indoor)  
+│   ├── 📂 gt          # Ground Truth images (indoor)  
 
 ---
 
