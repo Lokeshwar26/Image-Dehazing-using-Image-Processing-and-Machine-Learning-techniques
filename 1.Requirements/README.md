@@ -20,6 +20,7 @@
 ├── 📂 indoor
 │ ├── 📂 hazy # Hazy images (indoor)
 │ ├── 📂 gt # Ground Truth images (indoor)
+**
 
 ## **4️⃣ MATLAB Functions Required**
 - `imageDatastore()` – To store and manage image datasets
