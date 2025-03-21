@@ -1,75 +1,73 @@
-# Image Dehazing using CNN
+# Image Dehazing using CNN 🚀
 
-This function performs image dehazing using a Convolutional Neural Network (CNN) and various image processing techniques. It aims to remove haze from an input image while also performing object detection and calculating the Weighted Signal-to-Noise Ratio (WSNR) for evaluation.
+## 📂 Project Structure
 
-## Inputs
-- **im**: Input hazy RGB image.
+📂 **Image-Dehazing**  
+├── 📂 **dataset**               # Contains all dataset files  
+│   ├── 📂 **outdoor**  
+│   │   ├── 📂 **hazy**          # Hazy images (outdoor)  
+│   │   ├── 📂 **gt**            # Ground Truth images (outdoor)  
+│   ├── 📂 **indoor**  
+│   │   ├── 📂 **hazy**          # Hazy images (indoor)  
+│   │   ├── 📂 **gt**            # Ground Truth images (indoor)  
+├── 📂 **models**                # Trained models and weights  
+│   ├── dehazing_CNN.mat         # Saved trained model  
+├── 📂 **notebooks**             # Jupyter/Colab Notebooks for experiments  
+│   ├── Image_Dehazing.ipynb     # Training and testing notebook  
+├── 📂 **src**                   # Source code files  
+│   ├── train.m                  # MATLAB training script  
+│   ├── test.m                   # MATLAB testing script  
+│   ├── preprocess.m             # Preprocessing functions  
+│   ├── customReadFcn.m          # Custom image read function  
+├── 📂 **results**               # Stores generated outputs  
+│   ├── sample_results/          # Example dehazed images  
+├── 📂 **docs**                  # Documentation and model info  
+│   ├── CNN_Layer_Info.txt       # CNN Model Layer Information  
+├── dataset_split.mat            # Preprocessed dataset split file  
+├── README.md                    # Project documentation  
+├── requirements.txt             # Dependencies and requirements  
 
-## Outputs
-- **dehaze**: Dehazed output image.
-- **layer_outputs**: Outputs from different layers in the network (F1, F2, F3, F4, F4_filtered).
-- **wsnr**: Weighted Signal-to-Noise Ratio (WSNR) between the original hazy image and the dehazed image.
+---
 
-## Function Workflow
+## 📌 Description
+This repository contains an implementation of an **Image Dehazing model using CNNs**.  
+The dataset consists of **outdoor and indoor images** with corresponding **hazy and ground truth** versions.  
+The model leverages **multi-scale feature extraction, attention mechanisms, and residual learning**.
 
-### 1. Preprocessing and Parameter Setup
-- Convert the input image to grayscale (`gray_I`).
-- Load pre-trained CNN weights and biases from `dehaze.mat`.
-- Subtract 0.5 from the input image for normalization (`haze = im - 0.5`).
+---
 
-### 2. Feature Extraction (F1)
-- Perform convolution on the hazy image using `weights_conv1` and `biases_conv1`.
-- Reshape the output of the convolution and apply a max pooling operation in a step-wise manner to extract features.
+## 🔹 CNN Model Layer Information
+**12×1 Layer array with layers:**
 
-### 3. Multi-scale Mapping (F2)
-- Apply convolutions with multiple kernel sizes (3x3, 5x5, 7x7) using `weights_conv3x3`, `weights_conv5x5`, and `weights_conv7x7`.
-- Store the resulting feature maps in a tensor `F2`.
+| #  | Layer Name            | Type                | Description |
+|----|----------------------|--------------------|-------------|
+| 1  | `input`              | Image Input       | 256×256×3 images with 'zerocenter' normalization |
+| 2  | `conv1_3x3`          | 2-D Convolution   | 64 3×3×3 convolutions with stride [1 1] and padding 'same' |
+| 3  | `relu1`              | ReLU              | ReLU |
+| 4  | `conv1_5x5`          | 2-D Convolution   | 64 5×5×3 convolutions with stride [1 1] and padding 'same' |
+| 5  | `relu2`              | ReLU              | ReLU |
+| 6  | `add1`               | Addition          | Element-wise addition of 2 inputs |
+| 7  | `conv2`              | 2-D Convolution   | 64 3×3×64 convolutions with stride [1 1] and padding 'same' |
+| 8  | `relu3`              | ReLU              | ReLU |
+| 9  | `channel_attention`  | 2-D Convolution   | 64 1×1×64 convolutions with stride [1 1] and padding 'same' |
+| 10 | `sigmoid1`           | Sigmoid           | Sigmoid activation function |
+| 11 | `output`             | 2-D Convolution   | 3 3×3×64 convolutions with stride [1 1] and padding 'same' |
+| 12 | `regression_output`  | Regression Output | Mean-squared-error with response 'Response' |
 
-### 4. Local Extremum (F3)
-- Apply a 3x3 convolution to `F2` to extract local extrema and store the result in `F3`.
+✅ **Layer information is also saved in** `CNN_Layer_Info.txt`
 
-### 5. Non-linear Regression (F4)
-- Apply a fully connected layer to `F3` using the weights and biases (`weights_ip`, `biases_ip`).
-- Clip the output to ensure values remain within the range [0, 1].
+---
 
-### 6. Atmospheric Light (A)
-- Sort `F4` values and identify the brightest pixels.
-- Compute the atmospheric light based on these pixels using the original image and the `A` value.
+## 🔧 Requirements
+- MATLAB 2023 or later  
+- Deep Learning Toolbox  
+- Image Processing Toolbox  
+- GPU (optional but recommended for training)  
 
-### 7. Guided Filter
-- Apply a guided filter to `F4` to improve the quality of the estimated transmission map (`F4_filtered`).
+---
 
-### 8. Final Dehazing Step
-- Subtract the atmospheric light `A` from the image.
-- Divide the result by the filtered transmission map (`F4_filtered`).
-- Add the atmospheric light back to obtain the dehazed image (`dehaze`).
-
-### 9. Object Detection (Hazy and Dehazed)
-- Perform object detection on the original hazy image using a pre-trained YOLOv4 detector.
-- Annotate detected objects in the hazy image with bounding boxes and labels.
-- Repeat object detection on the dehazed image and annotate the results.
-
-### 10. WSNR Calculation
-- Compute the WSNR between the original hazy image and the dehazed image.
-  - Formula:  
-    \[
-    \text{WSNR} = 10 \log_{10} \left( \frac{\sum (I_{\text{original}} - I_{\text{dehazed}})^2}{\sum (I_{\text{original}} - \mu_{\text{original}})^2} \right)
-    \]
-  where \( I_{\text{original}} \) is the original image, \( I_{\text{dehazed}} \) is the dehazed image, and \( \mu_{\text{original}} \) is the mean of the original image.
-
-### 11. Visualize and Annotate Results
-- Display the following in a 3x3 grid:
-  1. **Original Hazy Image** with object detection bounding boxes.
-  2. **Feature Extraction (F1)**: Display the first channel of `F1`.
-  3. **Multi-scale Mapping (F2)**: Display the first channel of `F2`.
-  4. **Local Extremum (F3)**: Display the first channel of `F3`.
-  5. **Non-linear Regression (F4)**: Display the processed `F4`.
-  6. **Guided Filter on F4**: Display the filtered version of `F4`.
-  7. **Atmospheric Light (A)**: Display the atmospheric light.
-  8. **Dehazed Image** with object detection bounding boxes.
-
-## Function Usage
-
-```matlab
-[dehaze, layer_outputs, wsnr] = run_cnn(im);
-
+## 🚀 How to Use
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/yourusername/Image-Dehazing.git
+   cd Image-Dehazing
