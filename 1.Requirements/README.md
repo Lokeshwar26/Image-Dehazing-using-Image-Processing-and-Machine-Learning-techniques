@@ -13,7 +13,13 @@
 ## **3️⃣ Dataset Requirements**
 - **Dataset Used:** RESIDE (SOTS - Indoor & Outdoor)
 - **File Format:** JPEG, PNG
-- **Dataset Structure:**  
+- **Dataset Structure:📂 dataset
+├── 📂 outdoor
+│ ├── 📂 hazy # Hazy images (outdoor)
+│ ├── 📂 gt # Ground Truth images (outdoor)
+├── 📂 indoor
+│ ├── 📂 hazy # Hazy images (indoor)
+│ ├── 📂 gt # Ground Truth images (indoor)
 
 ## **4️⃣ MATLAB Functions Required**
 - `imageDatastore()` – To store and manage image datasets
