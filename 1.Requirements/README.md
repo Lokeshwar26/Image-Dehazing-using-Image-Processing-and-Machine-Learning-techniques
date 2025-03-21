@@ -1,81 +1,50 @@
-## High-Level Requirements (HLRs)
+# **Requirements for Image Dehazing using CNN in MATLAB**
 
-- **Dehazing Capability**:  
-  The system must reduce or remove haze from input images and produce visually clear outputs.
+## **1️⃣ Software & Environment**
+- **MATLAB** (with Deep Learning Toolbox, Image Processing Toolbox)
+- **Visual Studio Code** (optional, for code editing)
 
-- **Machine Learning Model**:  
-  The system must use a CNN-based model to perform image dehazing.
+## **2️⃣ Hardware Requirements**
+- **GPU (Recommended for faster training):** NVIDIA GPU with CUDA support
+- **CPU (Minimum requirement):** Intel i5/i7 or equivalent
+- **RAM:** At least 8GB (16GB recommended)
+- **Storage:** At least 20GB free space for dataset and model
 
-- **Dataset Handling**:  
-  The system must support both indoor and outdoor hazy datasets for training and testing.
+## **3️⃣ Dataset Requirements**
+- **Dataset Used:** RESIDE (SOTS - Indoor & Outdoor)
+- **File Format:** JPEG, PNG
+- **Dataset Structure:**  
 
-- **Result Evaluation**:  
-  The system must evaluate the performance of the dehazing model using quantitative metrics (e.g., PSNR, SSIM).
+## **4️⃣ MATLAB Functions Required**
+- `imageDatastore()` – To store and manage image datasets
+- `imread()` – To read images
+- `imresize()` – To resize images (256x256)
+- `im2double()` – To normalize pixel values
+- `trainNetwork()` – To train the CNN model
+- `save()` – To save dataset splits and trained model
 
-- **Platform Compatibility**:  
-  The system must be compatible with MATLAB for model training and implementation.
+## **5️⃣ CNN Model Architecture**
+- **Input Layer:** 256x256x3 image input
+- **Multi-Scale Feature Extraction:**
+- 3x3 convolution (64 filters) + ReLU
+- 5x5 convolution (64 filters) + ReLU
+- **Residual Learning:**
+- Addition layer
+- 3x3 convolution (64 filters) + ReLU
+- **Attention Mechanism:**
+- Channel Attention (1x1 convolution + Sigmoid)
+- **Output Layer:**
+- 3x3 convolution (3 filters) for dehazed image
+- Regression layer for pixel-wise comparison
 
----
+## **6️⃣ Training Setup**
+- **Optimizer:** Adam
+- **Learning Rate:** 1e-4
+- **Mini-batch Size:** 8
+- **Max Epochs:** 50
+- **Validation Split:** 20% (Train: 80%, Validation: 20%)
+- **Data Shuffle:** Every epoch
 
-## Low-Level Requirements (LLRs)
-
-- **Data Preprocessing**:  
-  - Input images must be resized to 256x256 pixels for compatibility with the CNN model.  
-  - Data augmentation techniques (e.g., flipping, rotation) must be applied to enhance training diversity.
-
-- **Model Architecture**:  
-  - The CNN must include specific layers (e.g., convolutional, pooling, ReLU, transposed convolution, etc.).  
-  - Layer configurations (e.g., kernel size, stride, padding) must be defined to optimize performance.
-
-- **Custom Datastore**:  
-  A custom datastore must be implemented to handle paired input-output datasets (hazy images and ground truth images).
-
-- **Training Pipeline**:  
-  - The model must be trained using the Adam optimizer with a learning rate of 1e-4.  
-  - The maximum number of training epochs must be 50, with a mini-batch size of 16.
-
-- **Validation and Testing**:  
-  - Validation data must be used to monitor overfitting during training.  
-  - Testing must use unseen data to evaluate the model's generalization performance.
-
----
-
-## Functional Requirements
-
-- **Input and Output**:  
-  Accept hazy images as input and return dehazed images as output.
-
-- **Data Handling**:  
-  - Load images from specified directories for training, validation, and testing.  
-  - Support paired datasets (hazy and ground truth images).
-
-- **Model Training**:  
-  Train the CNN model on the paired datasets and save the trained model for future use.
-
-- **Model Prediction**:  
-  Use the trained model to predict dehazed images for new inputs.
-
-- **Performance Metrics**:  
-  Compute metrics such as PSNR and SSIM to evaluate model performance.
-
----
-
-## Non-Functional Requirements (NFRs)
-
-- **Performance**:  
-  The system must process input images and provide dehazed outputs in under 5 seconds per image during inference.
-
-- **Scalability**:  
-  The system must handle datasets with at least 1,000 images without significant memory or performance issues.
-
-- **Maintainability**:  
-  The codebase must be modular and well-documented for ease of maintenance and future enhancements.
-
-- **Usability**:  
-  The system must be user-friendly, allowing researchers or developers to train and test the model with minimal setup.
-
-- **Reliability**:  
-  The system must ensure that the dehazed output images are consistent and free from significant artifacts.
-
-- **Energy Efficiency**:  
-  The system must minimize computational resource usage during training and inference.
+## **7️⃣ Output Files**
+- `dataset_split.mat` – Stores train and validation datasets
+- `dehazing_CNN.mat` – Trained CNN model
