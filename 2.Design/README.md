@@ -18,9 +18,7 @@
 │   ├── train.m                  # MATLAB training script  
 │   ├── test.m                   # MATLAB testing script  
 │   ├── preprocess.m             # Preprocessing functions  
-│   ├── customReadFcn.m          # Custom image read function  
-├── 📂 **results**               # Stores generated outputs  
-│   ├── sample_results/          # Example dehazed images  
+│   ├── customReadFcn.m          # Custom image read function   
 ├── 📂 **docs**                  # Documentation and model info  
 │   ├── CNN_Layer_Info.txt       # CNN Model Layer Information  
 ├── dataset_split.mat            # Preprocessed dataset split file  
