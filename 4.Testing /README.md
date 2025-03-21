@@ -2,9 +2,13 @@
 
 ## 📂 Test Dataset Structure
 📂 dataset
-├── 📂 test
-│ ├── 📂 hazy # Hazy images for testing
-│ ├── 📂 gt # Ground Truth images for evaluation
+├── 📂 outdoor
+│   ├── 📂 hazy      # Hazy images (outdoor)
+│   ├── 📂 gt        # Ground Truth images (outdoor)
+├── 📂 indoor
+│   ├── 📂 hazy      # Hazy images (indoor)
+│   ├── 📂 gt        # Ground Truth images (indoor)
+
 
 ---
 
